@@ -1,0 +1,125 @@
+Running
+=======
+
+3. HIS file always has vol=0 - weird!
+
+Code description
+================
+
+Main time loop has counter ints. This loops from intstart to intstart+intrun. intstart is set in main.f95 depending on whether you've asked for forward / backward integration.
+
+readfield.f9x must set ncTpos (time slice for nc reading) to read in time-dependent fields.
+
+
+Loop Labels
+===========
+
+intsTimeLoop = main time loop
+|	     - ints = intstart + 1 : intstart+intrun
+|
+----> nTracLoop    = loop over different trajectories
+      |		   - ntrac = 1:ntractot
+      |
+      ----> niterLoop    = ode solver loop for each trajectory?
+
+Variable Descriptions
+=====================
+NOT MODIFIED = same in khedstrom's version
+
+ints 	     = main time loop counter goes from intstart to intstart+intrun
+intstart     = intmin (forward) or intmin+intrun (backward) - main.f95
+intrun	     = (run file)
+intmin	     = (run file)
+intmax	     = input from grid file (init_par) | NOT SURE IF USED
+intend	     = intmax (forward), intmin (backward) - main.f95 | NOT SURE IF USED
+intspin	     = (run file) trajectory release period | particles are released when ints <= intstart+intspin 
+intstep      = (run file) pos if forward, neg if backward
+intrpg 	     = time interpolation constant (?)
+intrpr       = 1 - intrpg (?)
+
+niter	     = loop counter for ODE solver? called once per trajectory
+	     = This is written to *_run.asc file
+
+ncTpos	     = defines which time slice to use in the netcdf file.
+
+Following from comment.f95
+--------------------------
+ds          = dt/(dx*dy*dz) Units in (s/m**3)
+dsmin	    = dtmin/(dx*dy*dz) Units in (s/m**3)
+tt          = ints*tseas - time in seconds of the trajectory relative to the code start
+
+dt 	    - time step of trajectory iteration in seconds
+	    = dtmin * floor(tt/tseas * iter) + 1 - tt/tseas * iter
+	    = I think this is for the ODE solver
+
+tseas	    = ngcm * 3600 = time between velocity fields - NOT MODIFIED
+dtmin  	    = tseas / iter =  iterative time step in seconds - NOT MODIFIED
+timax       = max time duration of trajectory (specified in run file) then converted to seconds in init_par
+
+
+Rebecca Dell's notes
+====================
+
+FILES:
+
+Compile after Changing:
+Outer Makefile - Set Project
+      	       - Set Case
+Inner Makefile - Usually no changes required
+setupgrid      - L52: name of grid file (grid.nc) 
+readfield      - L64: name of velocity file (vel.nc)
+	       - L67: nctpos set the timestep to calculate trajectories
+
+No Compilation Needed:
+run.in	       - L8: casename
+	       - L56: twritetype=2 saves time as Julian date, I usually 
+	         use twritetype=0
+	       - L63: set how often to write out the trajectory locations
+	       - L66: directory containing vel.nc
+	       - L69: directory to write out the rusulting run.asc file
+	       - L72: name of output file
+	       - L75: intmininoutfile: if 1, adds starting time to output 
+	       	 filename; if 0 leaves output filename alone
+	       - L123+: locations to initialize particles
+	       - L168: set the diffusion parameters if using a 
+	         sub-grid-scale parameterization (-Dturb or -Ddiffusion in the 
+		 inner makefile)
+	       - LAST SECTION: location to kill particles
+	       - Also other options to set about the density and 
+	       	 distribution of particles
+
+grid.in	       - L10: name of grid.nc file
+	       - L12: description of run
+	       - L18+: size of grid, should be (L+1, M+1, N) in ROMS terms
+	       - L31: timestep between GCM steps--not exactly sure how this
+	       	 works.  Since I'm using stationary velocities, I don't 
+		 think this matters in physical terms.  However, with 
+		 kriva = 1 (run.in, L63), this is the timestep used to 
+		 output the particle locations, so I think 
+		 I can adjust this if I want more or fewer timesteps output.
+
+Data files:
+grid.nc	       - easiest to just copy this into the project file
+	       - make sure it has a mask_rho field--my newer grids all 
+	         include this automatically, but older grid files might 
+		 require it to be added--it's just ones everywhere
+vel.nc	       - copy this into the the project file, too
+
+
+Compilation
+===========
+
+1. Comment out return at end of main.f95
+
+2. Assign ARG_INT1 = intmin & ARG_INT2 = intrun in Makefile.global - based on bror's compilation.
+   Update: This is fixed by making sure there's a proper Makefile in the projects/*** subfolder. 
+   Kate's version expects Makefile.prj; Bror's version expects Makefile
+
+3. Undefined reference to interp_ means that tempsalt hasn't been defined. interp.f95 has code only
+   if tempsalt is defined
+
+4. commented out calls to z_w, z_r
+
+5. ifort requires -Tf switch to consider .f95 files as FORTRAN 90 compliant.
+
+6. commented out lines 91,102 in seed.f95

@@ -33,6 +33,14 @@ ifeq ($(F95COMPILER),"gfortran")
 	FF               = gfortran $(INC_DIR) $(F90_FLAGS) $(ORM_FLAGS)
 endif
 
+ifeq ($(F95COMPILER),"ifort")
+     FF_FLAGS         = -c -fpp -m64 -convert big_endian -gdwarf-2
+#     F90_FLAGS        = -fp-model precise -assume byterecl -g -traceback -check bounds
+    F90_FLAGS	      = -fp-model precise -ip -O3 -xHost
+     FF               = ifort $(INC_DIR) $(F90_FLAGS) $(ORM_FLAGS)
+     XTRA_FF 	      = -free -Tf
+endif
+
 ifeq ($(F95COMPILER),"pgi")
 	FF_FLAGS         = -c -g -Mfree -Mpreprocess
 	F90_FLAGS        = -g
@@ -64,13 +72,25 @@ objects := $(addprefix $(OBJDIR)/,modules.o savepsi.o loop_pos.o writetrajs.o \
                     writepsi.o writetracer.o printinfo.o loop.o main.o \
 		    setupgrid.o readfield.o diffusion.o light.o)
 
+ifeq ($(F95COMPILER),"ifort")
+runfile : $(objects)
+	$(FF)  $(MYI_FLAGS) -o runtracmass $(objects) $(LNK_FLAGS) $(MYL_FLAGS)
+
+$(OBJDIR)/%.o : %.f95
+	$(FF) $(FF_FLAGS) $(ORM_FLAGS) $(PROJECT_FLAG) $(CASE_FLAG) $(ARG_FLAGS) $(XTRA_FF)  $< -o $@
+
+$(objects) : 
+
+endif
+
+
 
 ifeq ($(F95COMPILER),"gfortran")
 runfile : $(objects)
 	$(FF)  -J$(OBJDIR) $(MYI_FLAGS) -o $(RUNFILE) $(objects) $(LNK_FLAGS) $(MYL_FLAGS)
 
 $(OBJDIR)/%.o : %.f95
-	$(FF) -J$(OBJDIR) $(FF_FLAGS) $(ORM_FLAGS) $(PROJECT_FLAG) $(CASE_FLAG) $(ARG_FLAGS)  $< -o $@
+	$(FF) -J$(OBJDIR) $(FF_FLAGS) $(ORM_FLAGS) $(PROJECT_FLAG) $(CASE_FLAG) $(ARG_FLAGS) $< -o $@
 endif
 
 ifeq ($(F95COMPILER),"pgi")
@@ -93,4 +113,3 @@ $(OBJDIR):
 clean :
 	rm -rf build
 	rm -f $(RUNFILE)
-

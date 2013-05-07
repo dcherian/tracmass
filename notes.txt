@@ -85,7 +85,7 @@ run.in	       - L8: casename
 	         use twritetype=0
 	       - L63: set how often to write out the trajectory locations
 	       - L66: directory containing vel.nc
-	       - L69: directory to write out the rusulting run.asc file
+	       - L69: directory to write out the resulting run.asc file
 	       - L72: name of output file
 	       - L75: intmininoutfile: if 1, adds starting time to output 
 	       	 filename; if 0 leaves output filename alone

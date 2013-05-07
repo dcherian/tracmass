@@ -53,6 +53,7 @@ CONTAINS
      REAL*8                                   :: tt, ts
      REAL*8                                   :: vol, subvol
 
+     ! Added to make seeding between tst1 & tst2 work
      ntime = ints
       ! --------------------------------------------
       ! --- Check if ntime is in vector seed_tim ---

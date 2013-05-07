@@ -234,8 +234,8 @@ SUBROUTINE init_params
 !            intmin = (startJD)/(real(ngcm)/24.)+1
 !         ELSE ! this needs to be verified
 !            intmin = (24*startJD)/ngcm+3-ngcm
- !        END IF
- !     END IF startYearCond
+!        END IF
+!     END IF startYearCond
 
       if (maxvelJD > 0) then
          minvelints = (minvelJD)/(real(ngcm)/24.)+1

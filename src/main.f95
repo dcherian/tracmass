@@ -62,7 +62,7 @@ PROGRAM main
   call loop
   call close_outfiles
 
-  return
+!  return
 
 
 end PROGRAM main

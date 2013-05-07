@@ -229,13 +229,13 @@ SUBROUTINE init_params
               ( dble((startHour)*3600 + startMin*60 + startSec) / 86400 ) -baseJD
       end if
 
-      startYearCond: IF (startYear /= 0) THEN
-         IF (ngcm >= 24) THEN 
-            intmin = (startJD)/(real(ngcm)/24.)+1
-         ELSE ! this needs to be verified
-            intmin = (24*startJD)/ngcm+3-ngcm
-         END IF
-      END IF startYearCond
+!      startYearCond: IF (startYear /= 0) THEN
+!         IF (ngcm >= 24) THEN 
+!            intmin = (startJD)/(real(ngcm)/24.)+1
+!         ELSE ! this needs to be verified
+!            intmin = (24*startJD)/ngcm+3-ngcm
+ !        END IF
+ !     END IF startYearCond
 
       if (maxvelJD > 0) then
          minvelints = (minvelJD)/(real(ngcm)/24.)+1

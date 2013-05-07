@@ -88,7 +88,7 @@ CONTAINS
             itim  = seed_tim (jsd)
          END IF
          
-#if defined baltix || defined rco
+!#if defined baltix || defined rco
          ! -------------------------------------------------
          ! --- Test if it is time to launch the particle ---
          ! -------------------------------------------------
@@ -99,7 +99,7 @@ CONTAINS
             PRINT*,'timeStart =',seedTime,' is not a valid configuration!'
             STOP
          END IF
-#endif         
+!#endif         
          vol = 0    
          ib  = iist
          ibm = ib-1

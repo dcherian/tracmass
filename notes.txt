@@ -1,3 +1,11 @@
+Things to do
+============
+
+1. Why do HIS files not work?
+2. Fix tst1,tst2
+3. Add forward,backward
+4. wflux calculation + temp, salt
+
 Running
 =======
 
@@ -39,7 +47,8 @@ intrpr       = 1 - intrpg (?)
 
 niter	     = loop counter for ODE solver? called once per trajectory
 	     = This is written to *_run.asc file
-
+ntime	     = ? - used for seeding it tst1 < ntime < tst2
+	     = I've set this to ints in seed.f95
 ncTpos	     = defines which time slice to use in the netcdf file.
 
 Following from comment.f95

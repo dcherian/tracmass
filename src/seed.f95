@@ -53,6 +53,7 @@ CONTAINS
      REAL*8                                   :: tt, ts
      REAL*8                                   :: vol, subvol
 
+     ntime = ints
       ! --------------------------------------------
       ! --- Check if ntime is in vector seed_tim ---
       ! --------------------------------------------
@@ -96,7 +97,7 @@ CONTAINS
          &    (seedTime == 2 .AND. ntime /= itim) ) THEN
             CYCLE startLoop
          ELSE IF (seedTime /= 1 .AND. seedTime /= 2) THEN
-            PRINT*,'timeStart =',seedTime,' is not a valid configuration!'
+            PRINT*,'seedTime =',seedTime,' is not a valid configuration!'
             STOP
          END IF
 !#endif         

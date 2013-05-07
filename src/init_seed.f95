@@ -36,12 +36,13 @@ SUBROUTINE init_seed()
    LOGICAL                                    :: fileexists
 
 !-------------------------------------------------------------------------------
-#if ! defined baltix && ! defined rco
-   seedPos = seedType
+! All these are read from _run.in file
+!#if ! defined baltix && ! defined rco
+!   seedPos = seedType
 !  seedType = 1
-   seedTime = 0
-   seedAll = 0
-#endif
+!  seedTime = 0
+   seedAll = 1
+!#endif
 
    print *, ' '
    SELECT CASE (seedPos)
@@ -276,7 +277,7 @@ SUBROUTINE init_seed()
       PRINT*,'Seed size: ',nsdTim
    
    END SELECT
-   
+
    SELECT CASE (seedAll)
    
    CASE (1)

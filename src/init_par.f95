@@ -201,10 +201,10 @@ SUBROUTINE init_params
          CALL getarg(2,inparg)
          if ( ARG_INT1 == 0) then
             read( inparg, '(i15)' ) ARG_INT1
-            write( inargstr1, '(A,i9.9 )' ) '_',ARG_INT1
+            write( inargstr1, '(A,i12.9 )' ) '_',ARG_INT1
          else
             read( inparg, '(f15.10)' ) ARG_INT1
-            write( inargstr1, '(A,f9.9 )' ) '_',ARG_INT1
+            write( inargstr1, '(A,f12.9 )' ) '_',ARG_INT1
          end if         
       END IF
 
@@ -213,10 +213,10 @@ SUBROUTINE init_params
          CALL getarg(3,inparg)
          if ( ARG_INT2 == 0) then
             read( inparg, '(i15)' ) ARG_INT2
-            write( inargstr2, '(A,i9.9)' ) '_',ARG_INT2
+            write( inargstr2, '(A,i12.9)' ) '_',ARG_INT2
          else
             read( inparg, '(f15.10)' ) ARG_INT2
-            write( inargstr2, '(A,f9.9)' ) '_',ARG_INT2
+            write( inargstr2, '(A,f12.9)' ) '_',ARG_INT2
          end if
       END IF
     

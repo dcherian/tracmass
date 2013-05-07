@@ -161,10 +161,10 @@ CONTAINS
 !         /,'    tmin0 : ',f7.2,'  tmax0 : ',f7.2, &
 !         /,'    smin0 : ',f7.2,'  smax0 : ',f7.2,&
 !         /,'    rmin0 : ',f7.2,'  rmax0 : ',f7.2)
-    print *, thinline !--------------------------------------------------- 
-    print *,'t-step        run        out        err '  // & 
-            '       tot   dt  model date'
-    print *, thinline !--------------------------------------------------- 
+    print *, thinline !------------------------------------------------------------ 
+    print *,'t-step     t-ind      run        out        err '  // & 
+            '       tot     dt    model date'
+    print *, thinline !------------------------------------------------------------ 
 
 
 
@@ -199,9 +199,9 @@ CONTAINS
     wallsec = walltime - wallmin*60
 
     call updateClock
-    print 799 ,ints-intstart ,ntractot-nout ,nout ,nerror,ntractot, &
+    print 799 ,ints-intstart ,ints,ntractot-nout ,nout ,nerror,ntractot, &
          wallmin, wallsec, loopYear, loopMon, loopDay, loopHour, loopMin 
-799 format(i7, '|', i10,  '|', i10,  '|', i10,  '|', i10, ' | ',  &
+799 format(i7, '|', i7, '|', i10,  '|', i10,  '|', i10,  '|', i10, ' | ',  &
          i2.2, ':', i2.2, ' | ', i4.4, '-', i2.2, '-', i2.2, ' ', &
          i2.2, ':', i2.2)
 !799 format(i7,' run=',i10,' out=',i10,' err=',i10,' tot=',i10, ' dt=',i2.2,':',i2.2)

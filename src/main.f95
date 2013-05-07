@@ -21,6 +21,10 @@ PROGRAM main
   call writesetup_main
 
   modrundirCond: if(intstep.gt.0) then ! forward 
+     ! if seeding in time interval, then start there!
+     if(seedTime == 1) then
+        intmin = tst1-1
+     end if
      intstart =  intmin          
      intend   =  intmax
   elseif(intstep.lt.0) then ! backward

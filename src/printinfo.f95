@@ -75,6 +75,11 @@ CONTAINS
     print *,' - Temperature and salinity fields included'
 #endif
 #endif
+#if defined zgrid3Dt
+    print *,' - Time dependent z-grid'
+#else
+    print *,' - Time independent z-grid'
+#endif
 #if defined turb
     print *,' - Sub-grid turbulence parameterisation'
     print *,' - Diffusion param: Ah=',ah,'m2/s and Av=',av,'m2/s'
@@ -92,7 +97,7 @@ CONTAINS
     print *,' - Two-dimensional trajectories, no change in depth'
 #endif
 #if defined full_wflux
-    print *,' - 3D vertival volume flux field.'
+    print *,' - 3D vertical volume flux field.'
 #endif
 #if defined explicit_w
     print *,' - Explicit vertical velocities from the GCM.'

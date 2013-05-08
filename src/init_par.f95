@@ -284,12 +284,12 @@ SUBROUTINE init_params
       ALLOCATE ( lat(imt,jmt), lon(imt,jmt) )
       ALLOCATE ( srflux(imt,jmt,nst) )
 #endif
+#ifdef zgrid3Dt
+      ALLOCATE ( dzt(imt,jmt,km,nst) )   
 #ifdef roms
       ALLOCATE ( z_r(imt,jmt,km,nst) )
       ALLOCATE ( z_w(imt,jmt,0:km,nst) )
 #endif
-#ifdef zgrid3Dt
-      ALLOCATE ( dzt(imt,jmt,km,nst) )   
 #elif  zgrid3D
       ALLOCATE ( dzt(imt,jmt,km) )   
 #endif /*zgrid3Dt*/

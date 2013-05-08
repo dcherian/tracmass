@@ -754,7 +754,7 @@ return
                  print *, thickline !========================================
                  print *,'Warning: not find any path for unknown reason '
                  print *, " "
-                 write (*,'(A, E9.3, A, E9.3)'), ' uflux= ', &
+                 write (*,'(A, E12.3, A, E12.3)'), ' uflux= ', &
                       uflux(ia,ja,ka,nsm),'  vflux= ', vflux(ia,ja,ka,nsm)
                  call print_ds
                  print *, thinline !-----------------------------------------

@@ -3,7 +3,7 @@ module mod_pos
   USE mod_grid
   USE mod_vel
   USE mod_loopvars
-  USE mod_time, only: intrpb, intrpbg
+  USE mod_time !, only: intrpb, intrpbg
   USE mod_streamfunctions
   USE mod_psi
     

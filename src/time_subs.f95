@@ -48,10 +48,10 @@ subroutine cross_time(ijk,ia,ja,ka,r0,sp,sn,dxyz)
 
 USE mod_param
 USE mod_vel
-USE mod_grid, only: imt,jmt,km
+USE mod_grid, only: imt,jmt,km,nsp,nsm,dz
 USE mod_turb
-USE mod_time, only: ts, tt, intrpr, intrpg
-USE mod_loopvars, only: dsmin
+USE mod_time , only: ts, tt, intrpr, intrpg, tseas
+USE mod_loopvars , only: dsmin
 IMPLICIT NONE
 
 INTEGER :: iim,loop,iil,ii,ijk,ia,ja,ka
@@ -95,7 +95,7 @@ if(ijk.eq.1) then
   um=um+upr(8,1)  
   vm=vm+upr(2,1)  
  endif
-#endif
+#endif ! turb
 elseif(ijk.eq.2) then
  ii=ja
  iim=ja-1
@@ -124,10 +124,10 @@ elseif(ijk.eq.3) then
  ii=ka
  iim=ka-1
  iil=iim
- uu=wflux(ii ,nsp)
- um=wflux(iil,nsp)
- vv=wflux(ii ,nsm)
- vm=wflux(iil,nsm)
+ uu=wflux(ia,ja,ii ,nsp)
+ um=wflux(ia,ja,iil,nsp)
+ vv=wflux(ia,ja,ii ,nsm)
+ vm=wflux(ia,ja,iil,nsm)
 #ifdef turb   
  if(r0.ne.dble(ii)) then
   vv=vv+upr( 5,2)  
@@ -225,9 +225,9 @@ subroutine pos_time(ijk,ia,ja,ka,r0,r1,ts,tt,dsmin,dxyz,ss0,ds)
 
 USE mod_param
 USE mod_vel
-USE mod_grid
+USE mod_grid, only: imt, nsp, nsm, km, dz
 USE mod_turb
-USE mod_time, only: intrpr, intrpg
+USE mod_time, only: intrpr, intrpg, tseas
 IMPLICIT NONE
 
 REAL*8,  PARAMETER ::  xilim=3.0d0,xxlim=1.d-7
@@ -305,10 +305,10 @@ elseif(ijk.eq.3) then
  ii=ka
  iim=ka-1
  iil=iim
- uu=wflux(ii ,nsp)
- um=wflux(iil,nsp)
- vv=wflux(ii ,nsm)
- vm=wflux(iil,nsm)
+ uu=wflux(ia,ja,ii ,nsp)
+ um=wflux(ia,ja,iil,nsp)
+ vv=wflux(ia,ja,ii ,nsm)
+ vm=wflux(ia,ja,iil,nsm)
 #ifdef turb   
  if(r0.ne.dble(ii)) then
   vv=vv+upr( 5,2)  

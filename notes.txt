@@ -1,15 +1,11 @@
 Things to do
 ============
 
-1. Why do HIS files not work?
-2. Fix tst1,tst2
 3. Add forward,backward
 4. wflux calculation + temp, salt
-
-Running
-=======
-
-3. HIS file always has vol=0 - weird!
+6. is there an index-1 problem?
+7. What do freesurface & varbottombox do?
+8. Fix tracer writing
 
 Code description
 ================

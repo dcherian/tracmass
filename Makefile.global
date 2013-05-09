@@ -1,4 +1,4 @@
-
+#-*-makefile-*-
 PROJMAKE           := $(wildcard projects/$(PROJECT)/Makefile.prj)
 ifneq ($(strip $(PROJMAKE)),)
 	include projects/$(PROJECT)/Makefile.prj
@@ -36,7 +36,7 @@ endif
 ifeq ($(F95COMPILER),"ifort")
      FF_FLAGS         = -c -fpp -m64 -convert big_endian -gdwarf-2
 #     F90_FLAGS        = -fp-model precise -assume byterecl -g -traceback -check bounds
-    F90_FLAGS	      = -fp-model precise -ip -O3 -xHost
+     F90_FLAGS	      = -fp-model precise -ip -O3 -xHost
      FF               = ifort $(INC_DIR) $(F90_FLAGS) $(ORM_FLAGS)
      XTRA_FF 	      = -free -Tf
 endif

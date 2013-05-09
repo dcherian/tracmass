@@ -80,8 +80,9 @@ SUBROUTINE readfields
 !  write (dstamp(10:14),'(I5.5)') int(currJDtot) - 730105 + 5
 
 !  dataprefix  = trim(inDataDir) // dstamp
-  fname = 'ocean_avg_0001.nc'
+  fname = 'ocean_his_0001.nc'
   dataprefix  = trim(inDataDir) // fname
+! Update time counter
   ncTpos        = ints
 !  print *,dataprefix
 
@@ -129,22 +130,25 @@ SUBROUTINE readfields
 ! DC: removed all z_w & z_r code. compilation errors (01 May 2013)
 ! define zgrid3Dt for z_w etc. to be defined
 
-#ifdef zgrid3Dt
+#if defined roms && defined zgrid3Dt
   z_w(:,:,0,2) = depth
-  print *,'size(z_w) = ', size(z_w,1), size(z_w,2), size(z_w,3), size(z_w,4)
+!  print *,'size(z_w) = ', size(z_w,1), size(z_w,2), size(z_w,3), size(z_w,4)
+!  print *,'size(depth) = ', size(depth,1), size(depth,2)
 #endif
+
   do k=1,km
-#ifdef zgrid3Dt
+#if defined roms && defined zgrid3Dt
      dzt0 = (hc*sc_r(k) + depth*Cs_r(k)) / (hc + depth)
      z_r(:,:,k,2) = ssh(:imt,:) + (ssh(:imt,:) + depth(:imt,:)) * dzt0(:imt,:)
 #endif
      dzt0 = (hc*sc_w(k) + depth*Cs_w(k)) / (hc + depth)
-#ifdef zgrid3Dt
+#if defined roms && defined  zgrid3Dt
      z_w(:,:,k,2) = ssh(:imt,:) + (ssh(:imt,:) + depth(:imt,:)) * dzt0(:imt,:)
      dzt(:,:,k,2) = z_w(:,:,k,2)
 #else
      dzt(:,:,k) = ssh(:imt,:) + (ssh(:imt,:) + depth(:imt,:)) * dzt0(:imt,:)
 #endif
+
   end do
 #ifdef zgrid3Dt
   dzt0 = dzt(:,:,km,2)

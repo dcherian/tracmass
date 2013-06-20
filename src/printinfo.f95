@@ -61,6 +61,9 @@ CONTAINS
     print *, thinline !--------------------------------------------------- 
     print *,'Directory for output files : ' ,trim(outDataDir)
     print *,'Prefix for output files    : ' ,trim(outDataFile)
+#ifdef tracer
+    print *,'Record length for tracer file : ',IMT*JMT*KM*8
+#endif
     print *, thinline !--------------------------------------------------- 
     print *,"Selected compile options:"
 #ifdef timeanalyt 

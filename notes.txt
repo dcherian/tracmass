@@ -5,7 +5,7 @@ Things to do
 4. wflux calculation + temp, salt
 6. is there an index-1 problem?
 7. What do freesurface & varbottombox do?
-8. Fix tracer writing
+8. Fix tracer writing - added mod_write
 
 Code description
 ================
@@ -14,6 +14,12 @@ Main time loop has counter ints. This loops from intstart to intstart+intrun. in
 
 readfield.f9x must set ncTpos (time slice for nc reading) to read in time-dependent fields.
 
+subvol
+======
+
+This is the volume flux in m3/s of the trajectory. Streamfunction calculations use flux = subvol * ff
+
+Inital value is calculated in seed.f95
 
 Loop Labels
 ===========
@@ -128,3 +134,10 @@ Compilation
 5. ifort requires -Tf switch to consider .f95 files as FORTRAN 90 compliant.
 
 6. commented out lines 91,102 in seed.f95
+
+7. for turbulence
+   - added dtmin from mod_time in turb.f95
+   - added upr from mod_turb in cross.f95
+
+8. for diffusion
+   - changed q1 = rand() to CALL RANDOM_NUMBER(q1) etc. in diffusion.f95

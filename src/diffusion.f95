@@ -158,10 +158,14 @@ SUBROUTINE displacement(xd, yd, zd, ib, jb, kb, dt)
 #endif
 		
 ! random generated numbers between 0 and 1
-	q1 = rand()	
-	q2 = rand()
-	q3 = rand()
-	q4 = rand()
+!	q1 = rand()	!
+!	q2 = rand()
+!	q3 = rand()
+!	q4 = rand()
+  CALL RANDOM_NUMBER(q1)
+  CALL RANDOM_NUMBER(q2)
+  CALL RANDOM_NUMBER(q3)
+  CALL RANDOM_NUMBER(q4)
 
 ! Horizontal displacements in meters
 	R = sqrt(-4*Ah*dt*log(1-q1))

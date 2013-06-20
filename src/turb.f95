@@ -9,7 +9,7 @@ CONTAINS
     ! computes the paramterised turbulent velocities u' and v' into upr
   
     USE mod_param
-    USE mod_time, only: intrpr, intrpg
+    USE mod_time, only: intrpr, intrpg, dtmin
     USE mod_grid
     USE mod_loopvars
     USE mod_vel
